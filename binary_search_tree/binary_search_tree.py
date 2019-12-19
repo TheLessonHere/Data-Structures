@@ -120,17 +120,56 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        # Check if there is a node to the left
+        if node.left:
+            # If so, call in order print recursively with that node
+            self.in_order_print(node.left)
+        # Once we hit the bottom of the left nodes, start checking the right ones
+        if node.right:
+            # Should print the value and then recur the function one to the right
+            print(node.value)
+            self.in_order_print(node.right)
+        # Once no more nodes, print the last value
+        else:
+            print(node.value)
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        # Create an iteration of a queue
+        queue = Queue()
+        # Add the starting node to the queue
+        queue.enqueue(node)
+        # Check if there is nodes in the queue, and if there are...
+        while queue.size > 0:
+            # Dequeue the next node up in the queue, and print it
+            next_node = queue.dequeue()
+            print(next_node.value)
+            # Then check if there are nodes to the left and right
+            if next_node.left is not None:
+                # If there are, enqueue them
+                queue.enqueue(next_node.left)
+            if next_node.right is not None:
+                queue.enqueue(next_node.right)
+        # ^^^ Should always print what's queued first before going down another depth
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        # Create an iteration of a stack
+        stack = Stack()
+        # We're basically doing a similar function to bft_print, but because
+        # of how stack works, it'll unload and print depth first
+        stack.push(node)
+        while stack.size > 0:
+            next_node = stack.pop()
+            print(next_node.value)
+            if next_node.left is not None:
+                stack.push(next_node.left)
+            if next_node.right is not None:
+                stack.push(next_node.right)
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
